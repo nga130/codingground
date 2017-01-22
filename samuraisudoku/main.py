@@ -84,7 +84,7 @@ output = open(r"samurai-sudoku.txt","a")
 
 for i in range(len(descrp)):
     des = str(descrp[i])
-    des = des.replace(r'</td><td style+="text-align:right;">'," / ")
+    des = des.replace(r'</td><td style="text-align:right;">'," / ")
     #print(des)
 
     sud = sudoku[i]
