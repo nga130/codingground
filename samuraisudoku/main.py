@@ -61,7 +61,7 @@ for f in filenames:
         
         if c == 9:
             #print(line)
-            get_des = re.findall(r'left;(.+)</td></tr>',line)
+            get_des = re.findall(r'left;">(.+)</td></tr>',line)
             get_sud = get_sudoku(line)
             #print(get_des)
             #print(get_sud
