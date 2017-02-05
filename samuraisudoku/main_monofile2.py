@@ -2,7 +2,7 @@ import re
 
 
 def get_sudoku(data_line):
-    get_code = re.findall(r'width=35>(.+)<',data_line)
+    get_code = re.findall(r'width="35">(.+)<',data_line)
     return get_code
 
 
@@ -14,23 +14,25 @@ input_file = open(r"filename.txt")
 c = 0
 temp_sud = []
 
+i = 0
 for line in input_file:
     
     c += 1
 
     if c == 1:
         #print(line)
-        get_des = re.findall(r'left;(.+)</td></tr>',line)
+        get_des = re.findall(r'(Difficulty.+)</td>',line)
         #print(get_des)
     elif c == 2:
         get_sud = get_sudoku(line)
         #print(get_sud)
-    elif c > 1 and c < 443:
+    elif c > 2 and c < 443:
         get_sud += get_sudoku(line)
         #print(get_sud)
 
     if c == 449:
         c = 0
+        i += 1
 
         for d in get_des:
             descrp.append(str(d))
@@ -42,6 +44,8 @@ for line in input_file:
 
         temp_sud[:] = []
         #temp_sud.clear()
+
+        #if i > 3: break
 
 input_file.close()
 
