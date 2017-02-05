@@ -17,12 +17,14 @@ temp_sud = []
 for line in input_file:
     
     c += 1
-    get_sud = ""
 
     if c == 1:
         #print(line)
         get_des = re.findall(r'left;(.+)</td></tr>',line)
         #print(get_des)
+    elif c == 2:
+        get_sud = get_sudoku(line)
+        #print(get_sud)
     elif c > 1 and c < 443:
         get_sud += get_sudoku(line)
         #print(get_sud)
