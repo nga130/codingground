@@ -6,54 +6,50 @@ def get_sudoku(data_line):
     return get_code
 
 
+
 descrp = []
 sudoku = []
-
-input_file = open(r"filename.txt")
-
-c = 0
 temp_sud = []
 
-i = 0
-for line in input_file:
-    
-    c += 1
+for fc in range(12):
+    filename = str(fc+1) + r".txt"
+    input_file = open(filename)
 
-    if c == 1:
-        #print(line)
-        get_des = re.findall(r'(Difficulty.+)</td>',line)
-        #print(get_des)
-    elif c == 2:
-        get_sud = get_sudoku(line)
-        #print(get_sud)
-    elif c > 2 and c < 443:
-        get_sud += get_sudoku(line)
-        #print(get_sud)
+    c = 0
+    i = 0
 
-    if c == 449:
-        c = 0
-        i += 1
+    for line in input_file:
+        c += 1
 
-        for d in get_des:
-            descrp.append(str(d))
+        if c == 1:
+            #print(line)
+            get_des = re.findall(r'(Difficulty.+)</td>',line)
+            #print(get_des)
+        elif c == 2:
+            get_sud = get_sudoku(line)
+            #print(get_sud)
+        elif c > 2 and c < 443:
+            get_sud += get_sudoku(line)
+            #print(get_sud)
+        elif c == 449:
+            c = 0
+            i += 1
 
-        for s in get_sud:
-            temp_sud.append(str(s))
-        code = "".join(temp_sud) 
-        sudoku.append(code)
+            for d in get_des: descrp.append(str(d))
+            for s in get_sud: temp_sud.append(str(s))
+            code = "".join(temp_sud) 
+            sudoku.append(code)
+            temp_sud[:] = []
+            #temp_sud.clear()
 
-        temp_sud[:] = []
-        #temp_sud.clear()
+            #if i > 3: break
 
-        #if i > 3: break
-
-input_file.close()
+    input_file.close()
 
 
 output_file = open(r"samurai-sudoku.txt","a")
 
 for i in range(len(descrp)):
-
     des = str(descrp[i])
     des = des.replace(r'</td><td style="text-align:right;">'," / ")
     #print(des)
